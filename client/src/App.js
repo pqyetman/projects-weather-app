@@ -28,7 +28,7 @@ function App() {
   let day = new Date()
   let timezone = day.getTimezoneOffset() / 60
   let hour = day.getHours()
-  const goggleAPI = "AIzaSyAoj5Boh6PpADQCUpF1JLZbxR56R58ST5A"
+  const goggleAPI = process.env.GOOGLE_API_KEY
 
   Geocode.setApiKey(`${goggleAPI}`)
 
