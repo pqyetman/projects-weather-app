@@ -70,14 +70,14 @@ function App() {
     if (typeof lng === "string" & typeof lat === "string") {
 
 
-      fetch(`http://www.7timer.info/bin/api.pl?lon=${lng}&lat=${lat}&product=civil&output=json`)
+      fetch(`https://www.7timer.info/bin/api.pl?lon=${lng}&lat=${lat}&product=civil&output=json`)
         .then(r => r.json())
         .then(d => {
           setForecast(d.dataseries) 
           setFutureForcast(d.dataseries)   
         })
 
-        fetch(`http://www.7timer.info/bin/api.pl?lon=${lng}&lat=${lat}&product=civillight&output=json`)
+        fetch(`https://www.7timer.info/bin/api.pl?lon=${lng}&lat=${lat}&product=civillight&output=json`)
         .then(r => r.json())
         .then(d => {
          setWeeklyForcast(d.dataseries)
