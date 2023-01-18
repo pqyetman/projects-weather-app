@@ -8,7 +8,7 @@ function NavigationBar() {
 
 
     return (
-        <Navbar collapseOnSelect expand="lg" bg="secondary" variant="dark" className="px-3">
+        <Navbar collapseOnSelect expand="lg" variant="dark" className="px-3 bg-dark text-white bg-opacity-50">
             <Navbar.Brand href="/">
                 <Umbrella size={35} className="d-inline-block align-top"/>
             </Navbar.Brand>
@@ -17,24 +17,8 @@ function NavigationBar() {
                 <Nav className="me-auto">
                     <Nav.Link href="/home">Today's Forcast</Nav.Link>
                     <Nav.Link href="/futureforcast">Future Forcast</Nav.Link>
-                    <Nav.Link href="/historicalforcast">Historical Data</Nav.Link>
-                    <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
-                        <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.2">
-                            Another action
-                        </NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                        <NavDropdown.Divider />
-                        <NavDropdown.Item href="#action/3.4">
-                            Separated link
-                        </NavDropdown.Item>
-                    </NavDropdown>
-                </Nav>
-                <Nav>
-                    <Nav.Link eventKey={2} href="#memes">
-                        Log Out
-                    </Nav.Link>
-                </Nav>
+                    <Nav.Link eventKey="disabled" disabled href="/historicalforcast">Historical Data</Nav.Link>               
+                </Nav>               
             </Navbar.Collapse>
         </Navbar>
     );

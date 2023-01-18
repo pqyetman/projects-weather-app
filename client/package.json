@@ -13,8 +13,10 @@
     "react-bootstrap": "^2.7.0",
     "react-bootstrap-icons": "^1.10.2",
     "react-dom": "^18.2.0",
+    "react-geocode": "^0.2.3",
     "react-router-dom": "^5.3.4",
     "react-scripts": "5.0.1",
+    "react-select-search": "^4.1.6",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
