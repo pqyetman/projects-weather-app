@@ -86,7 +86,7 @@ function SearchCityBar({setLocation, setLng, setLat}) {
                 }
             >
                 <InputGroup className=" bg-transparent">
-                    <Form.Control className="  bg-transparent border-top-0 border-start-0 border-end-0 text-white border-2 border-white"
+                    <Form.Control className="  bg-transparent border-top-0 border-start-0 border-end-0 text-white border-3 border-white"
                         placeholder="Search for a city..."
                         aria-label="Username"
                         aria-describedby="basic-addon1"

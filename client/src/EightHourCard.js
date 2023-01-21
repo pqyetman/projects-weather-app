@@ -27,12 +27,11 @@ function EightHourCard({ hourForecast }) {
 
 
   return (
-    <Card style={{ width: '15rem', background: "transparent", borderColor: "white" }}>
-      
+    <Card className="text-center" style={{ width: '15rem', background: "transparent", borderColor: "white" }}>      
         <Card.Body className="d-flex justify-content-center">
         <Stack gap={3}>
-          <Card.Title>{filterWeather(hourForecast.weather)}</Card.Title>
-          <Card.Text  className="ps-2" style={{ width: '10rem', height: '7rem' }}>
+          <Card.Title >{filterWeather(hourForecast.weather)}</Card.Title>
+          <Card.Text className="text-center" >
             {filterWeatherString(hourForecast.weather)}
           </Card.Text>
           </Stack>
