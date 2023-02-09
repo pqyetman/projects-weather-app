@@ -37,9 +37,9 @@ function App() {
   const getLocation = () => {
 
     if (!navigator.geolocation) {
-      setStatus('Geolocation is not supported by your browser');
-      setLng(90.00)
-      setLat(-135.00)
+      console.log('Geolocation enabled on your device, with out enabling geolocation this app will not work properly');
+      setLng("90.00")
+      setLat("-135.00")
     }
 
     else {
@@ -51,8 +51,8 @@ function App() {
         setLng(parseFloat(position.coords.longitude).toFixed(2));
       }, () => {
         alert('Unable to retrieve your location')
-        setLat(-82.86)
-        setLng(135.00)
+        setLat("-82.86")
+        setLng("135.00")
         ;
       });
     }

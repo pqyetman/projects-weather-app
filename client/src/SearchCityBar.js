@@ -12,7 +12,7 @@ function SearchCityBar({setLocation, setLng, setLat}) {
 
     const [searchValue, setSearchValue] = useState("")
 
-    const goggleAPI = "AIzaSyAoj5Boh6PpADQCUpF1JLZbxR56R58ST5A"
+    const goggleAPI = process.env.GOOGLE_API_KEY
 
     Geocode.setApiKey(`${goggleAPI}`)
     Geocode.setLanguage("en")
