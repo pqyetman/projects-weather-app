@@ -38,6 +38,8 @@ function App() {
 
     if (!navigator.geolocation) {
       setStatus('Geolocation is not supported by your browser');
+      setLng(90.00)
+      setLat(-135.00)
     }
 
     else {
