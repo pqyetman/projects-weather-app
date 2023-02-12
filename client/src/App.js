@@ -8,6 +8,7 @@ import SignUp from './SignUp';
 import NavigationBar from './NavigationBar'
 import About from "./About"
 
+const googleAPI = process.env.GOOGLE_API_KEY
 
 function App() {
 
