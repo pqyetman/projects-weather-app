@@ -8,16 +8,21 @@ import SignUp from './SignUp';
 import NavigationBar from './NavigationBar'
 import About from "./About"
 import Geocode from "react-geocode";
+import { useEffect } from 'react';
 
-const googleAPI = process.env.MAP_KEY
- 
+
+Geocode.setApiKey(`${process.env.MAP_KEY}`)
 Geocode.setLanguage("en")
-Geocode.setApiKey(`${googleAPI}`)
+
 
 
 function App() {
 
- 
+ useEffect(()=>{
+
+  console.log(process.env.MAP_KEY)
+
+ }, [])
 
   return (
 

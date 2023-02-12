@@ -1,9 +1,10 @@
 import Geocode from "react-geocode";
 
-const googleAPI = process.env.MAP_KEY
+
  
+Geocode.setApiKey(`${process.env.MAP_KEY}`)
 Geocode.setLanguage("en")
-Geocode.setApiKey(`${googleAPI}`)
+
 
 
 
@@ -37,6 +38,7 @@ export const getLngLat = (address, setLocation) => {
             (response) => {
                 const { lat, lng } = response.results[0].geometry.location;                
                 setLocation(response.results)
+                
                 
             },
             (error) => {
