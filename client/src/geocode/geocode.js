@@ -1,8 +1,9 @@
 import Geocode from "react-geocode";
 
-const goggleAPI = process.env.GOOGLE_API_KEY
+
+const googleAPI = process.env.GOOGLE_API_KEY
 Geocode.setLanguage("en")
-Geocode.setApiKey(`${goggleAPI}`)
+Geocode.setApiKey(`${googleAPI}`)
 
  
 
