@@ -1,11 +1,12 @@
 import Carousel from 'react-bootstrap/Carousel';
 import FFCard from './FFCard';
 import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import LocContext from './store/loc-context'
 
-function FFCarousel({ weeklyForcast, lng, lat }) {
+function FFCarousel({ loading }) {
 
+    const ctx = useContext(LocContext)
 
     const [dayTwo, setDayTwo] = useState("");
     const [dayThree, setDayThree] = useState("");
@@ -16,26 +17,19 @@ function FFCarousel({ weeklyForcast, lng, lat }) {
 
     useEffect(() => {
 
+        if(!loading){
 
-
-        if (typeof lng === "string" & typeof lat === "string") {
-            console.log(`Longitude and Lattitude are : ${lng}, ${lat}`);
-
-            setDayTwo(weeklyForcast[1])
-            setDayThree(weeklyForcast[2])
-            setDayFour(weeklyForcast[3])
-            setDayFive(weeklyForcast[4])
-            setDaySix(weeklyForcast[5])
-            setDaySeven(weeklyForcast[6])
+            setDayTwo(ctx.weeklyForcast[1])
+            setDayThree(ctx.weeklyForcast[2])
+            setDayFour(ctx.weeklyForcast[3])
+            setDayFive(ctx.weeklyForcast[4])
+            setDaySix(ctx.weeklyForcast[5])
+            setDaySeven(ctx.weeklyForcast[6])
 
         }
 
-        else {
-            console.log("Longitude and Lattitude are no good")
-        }
 
-
-    }, [weeklyForcast]);
+    }, [ctx.weeklyForcast, loading]);
 
     return (
         <>

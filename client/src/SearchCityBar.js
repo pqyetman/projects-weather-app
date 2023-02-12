@@ -1,66 +1,48 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
 import { Search } from 'react-bootstrap-icons'
-import Geocode from "react-geocode";
 import ListGroup from 'react-bootstrap/ListGroup';
+import LocContext from './store/loc-context.js';
+import {getLngLat, getAddress} from './geocode/geocode.js';
 
 
-function SearchCityBar({setLocation, setLng, setLat}) {
 
-    const [searchValue, setSearchValue] = useState("")
+function SearchCityBar() {
+  
 
-    const goggleAPI = process.env.GOOGLE_API_KEY
+    const ctx = useContext(LocContext);
 
-    Geocode.setApiKey(`${goggleAPI}`)
-    Geocode.setLanguage("en")
-
+    const [searchValue, setSearchValue] = useState("") 
+    const [location, setLocation] = useState([])
    
-
 
     function setSearch(e) {
 
-
-
-        Geocode.fromAddress(`${e.target.value}`).then(
-
-
-            (response) => {
-                const { lat, lng } = response.results[0].geometry.location;
-                let locations = response.results
-                let mapLocations = locations.map((result, index) => <ListGroup.Item action id = {`${result.geometry.location.lat}` + " " + `${result.geometry.location.lng}`} onClick={setLongLat} key={index.toString()} >{result.formatted_address}</ListGroup.Item>)
-                setSearchValue(mapLocations)
+        getLngLat(e.target.value, setLocation)                
+        let mapLocations = location.map((result, index) => <ListGroup.Item action id = {`${result.geometry.location.lat}` + " " + `${result.geometry.location.lng}`} onClick={setLongLat} key={index.toString()} >{result.formatted_address}</ListGroup.Item>)
+        setSearchValue(mapLocations)
           
-            },
-            (error) => {
-                
-            }
-        );
-
+    
     }
 
     function setLongLat(e){
 
       
         const longLat = e.target.id
-        const long = parseFloat(longLat.split(" ")[1]).toFixed(2)  
-        const lat = parseFloat(longLat.split(" ")[0]).toFixed(2)     
-       
-        
-        setLocation(e.target.innerText)
-      
-        setLng(long)
-        setLat(lat)
-       
+        const long = Number(longLat.split(" ")[1]).toFixed(2)  
+        const lat = Number(longLat.split(" ")[0]).toFixed(2) 
+        ctx.setLng(long)
+        ctx.setLat(lat)
+        getAddress(ctx.lat, ctx.lng, ctx.setLocation)    
 
     }
 
     function clearSearch(){
-    
-        setSearchValue("")
-
+        setLocation("") 
+        setSearchValue(<></>)
 
     }
 
@@ -74,7 +56,7 @@ function SearchCityBar({setLocation, setLng, setLat}) {
             <OverlayTrigger
                 trigger="focus"
                 key='bottom'
-                placement='bottom'
+                placement='bottom-start'
                 overlay={
                     <Popover id={`popover-positioned-bottom`} >
                         <Popover.Body>                      

@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import Container from 'react-bootstrap/Container'
-import Stack from 'react-bootstrap/Stack'
 import Row from 'react-bootstrap/Row';
 import Carousel from 'react-bootstrap/Carousel';
 import Col from 'react-bootstrap/Col';
@@ -8,13 +7,15 @@ import SearchCityBar from './SearchCityBar';
 import FFCarousel from './FFCarousel';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { statCloudCover, statHumidity, statPrec, statLiftedIndex, statTemp, percipitationAmount, cloudCoverage } from './WeatherDataFunctions'
+import LocContext from './store/loc-context'
+import useHttp from './hooks/use-http';
 
 
+function FutureForcast() {
 
+  const { loading, error, sendRequest: fetchWeather } = useHttp();
 
-
-function FutureForcast({ futureForcast, lng, lat, location, setLocation, setLng, setLat, weeklyForcast }) {
-
+  const ctx = useContext(LocContext)
 
   const [cloudData, setCloudData] = useState([])
   const [humidityData, setHumidityData] = useState([])
@@ -22,43 +23,51 @@ function FutureForcast({ futureForcast, lng, lat, location, setLocation, setLng,
   const [liftedIndexData, setLiftedIndexData] = useState([])
   const [tempData, setTempData] = useState([])
 
+
   useEffect(() => {
 
 
-    if (typeof lng === "string" & typeof lat === "string") {
+    if (typeof ctx.lng === "string" & typeof ctx.lat === "string") {  
 
-      setCloudData(statCloudCover(futureForcast))
+      
+      fetchWeather({ url: `https://www.7timer.info/bin/api.pl?lon=${ctx.lng}&lat=${ctx.lat}&product=civillight&output=json` },
+        ctx.setWeeklyForcast
+      )     
 
-      setHumidityData(statHumidity(futureForcast))
+      fetchWeather({ url: `https://www.7timer.info/bin/api.pl?lon=${ctx.lng}&lat=${ctx.lat}&product=civil&output=json` },
+      ctx.setForecast) 
 
-      setPrecData(statPrec(futureForcast))
+    }    
 
-      setLiftedIndexData(statLiftedIndex(futureForcast))
 
-      setTempData(statTemp(futureForcast))
+  }, [ctx.lng, ctx.lat]);
 
-      console.log("ff data set")
+  useEffect(() => {
+
+
+    if(!loading){
+      setCloudData(statCloudCover(ctx.forecast))
+      setHumidityData(statHumidity(ctx.forecast))
+      setPrecData(statPrec(ctx.forecast))
+      setLiftedIndexData(statLiftedIndex(ctx.forecast))
+      setTempData(statTemp(ctx.forecast))
 
     }
 
-    else {
-      console.log("Longitude and Lattitude are no good")
-    }
-
-  }, [futureForcast])
+  }, [ctx.forecast, loading])
 
 
 
   return (
-    <Container fluid className="m-0 p-0">
+    <Container fluid >
       <Row>
-        <Col md={12} className="text-center text-white  ">
+        <Col md={12} className="text-center text-white ">
           <Row className="mt-2 justify-content-center justify-content-md-start">
             <Col md={4} xs={8} lg={3} className="d-block d-md-inline ms-2" >
-              <SearchCityBar setLocation={setLocation} setLng={setLng} setLat={setLat} />
+              <SearchCityBar />
             </Col>
             <Row className="pt-5 pt-md-2">
-              <h2>{location}</h2>
+              <h2>{ctx.location}</h2>
             </Row>
           </Row>
           <Row className="mt-4 py-4">
@@ -187,7 +196,7 @@ function FutureForcast({ futureForcast, lng, lat, location, setLocation, setLng,
             </Col>
 
           </Row>
-          <Row className="py-4 mt-4">
+          <Row className="py-5 mt-4">
             <Col md={12}>
               <h3 className="text-center text-white"><u>Daily Forecast</u></h3>
             </Col>
@@ -196,7 +205,7 @@ function FutureForcast({ futureForcast, lng, lat, location, setLocation, setLng,
 
           <Row >
             <Col md={12}>
-              <FFCarousel weeklyForcast={weeklyForcast} lng={lng} lat={lat} />
+              <FFCarousel loading={loading}/>
             </Col>
           </Row>
         </Col>

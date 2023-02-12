@@ -4,26 +4,22 @@ import Stack from 'react-bootstrap/Stack';
 import { useState, useEffect } from 'react';
 import { windSpeed, filterWeather, filterWeatherString, dateConversion } from './WeatherDataFunctions'
 
-function FFCard({dailyForcast}) {
+function FFCard({dailyForcast =[]}) {
 
   const [tempMax, setTempMaxData] = useState("")
   const [tempMin, setTempMinData] = useState("")
 
+  const {temp2m, date, weather } = dailyForcast
+
   useEffect(() => {
 
-   
-    if (dailyForcast.date !== undefined) {
-
     
-     setTempMaxData(dailyForcast.temp2m.max)
-     setTempMinData(dailyForcast.temp2m.min)
+   
+      if (temp2m) {
+     setTempMaxData(temp2m.max)
+     setTempMinData(temp2m.min)  
+      }
 
-  
-    }
-
-    else {
-      console.log("Longitude and Lattitude are no good")
-    }
 
 
   }, [dailyForcast]);
@@ -33,10 +29,10 @@ function FFCard({dailyForcast}) {
       <Card style={{ width: '18rem' , background: "transparent", borderColor: "white" }}>       
         <Card.Body className="text-white d-flex">
         <Stack direction="vertical" gap={0}>
-          <Card.Title>{dateConversion(dailyForcast.date)}</Card.Title>
-          <Card.Text>{filterWeather(dailyForcast.weather+"day")}</Card.Text>
+          <Card.Title>{dateConversion(date)}</Card.Title>
+          <Card.Text>{filterWeather(weather+"day")}</Card.Text>
           <Card.Text className="align-self-center">
-            {filterWeatherString(dailyForcast.weather+"day")}
+            {filterWeatherString(weather+"day")}
           </Card.Text>
           </Stack>
         </Card.Body>
