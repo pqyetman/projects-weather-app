@@ -41,7 +41,7 @@ function SearchCityBar() {
     }
 
     function clearSearch(){
-        setLocation("") 
+        setLocation([]) 
         setSearchValue(<></>)
 
     }

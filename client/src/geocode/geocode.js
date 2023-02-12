@@ -1,9 +1,8 @@
 import Geocode from "react-geocode";
-import {googleAPI} from "../App.js"
 
 
-Geocode.setLanguage("en")
-Geocode.setApiKey(`${googleAPI}`)
+
+
 
  
 
