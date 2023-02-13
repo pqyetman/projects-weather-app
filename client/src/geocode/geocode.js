@@ -2,8 +2,7 @@ import Geocode from "react-geocode";
 
 
  
-Geocode.setApiKey(`${process.env.MAP_KEY}`)
-Geocode.setLanguage("en")
+
 
 
 

@@ -11,18 +11,19 @@ import Geocode from "react-geocode";
 import { useEffect } from 'react';
 
 
-Geocode.setApiKey(`${process.env.MAP_KEY}`)
+
+Geocode.setApiKey(`${process.env.REACT_APP_MAP_KEY}`)
 Geocode.setLanguage("en")
 
 
 
 function App() {
 
- useEffect(()=>{
+  useEffect(()=> {
 
-  console.log(process.env.MAP_KEY)
+    console.log(process.env)
 
- }, [])
+  }, [])
 
   return (
 
