@@ -9,6 +9,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import { statCloudCover, statHumidity, statPrec, statLiftedIndex, statTemp, percipitationAmount, cloudCoverage } from './WeatherDataFunctions'
 import LocContext from './store/loc-context'
 import useHttp from './hooks/use-http';
+import PlaceHolder from './PlaceHolder';
 
 
 function FutureForcast() {
@@ -67,7 +68,7 @@ function FutureForcast() {
               <SearchCityBar />
             </Col>
             <Row className="pt-5 pt-md-2">
-              <h2>{ctx.location}</h2>
+              <h2>{loading || ctx.location === false ? <PlaceHolder/> :ctx.location}</h2>
             </Row>
           </Row>
           <Row className="mt-4 py-4">
@@ -82,9 +83,9 @@ function FutureForcast() {
                 <h4 className="text-center">Cloud Coverage</h4>
               </Row>
               <ListGroup variant="flush" className="text-center">
-                <ListGroup.Item className="bg-transparent border-0 text-white">Maximum: {cloudCoverage(cloudData[0])}</ListGroup.Item>
-                <ListGroup.Item className="bg-transparent border-0 text-white">Average: {cloudCoverage(cloudData[1])}</ListGroup.Item>
-                <ListGroup.Item className="bg-transparent border-0 text-white">Minimum: {cloudCoverage(cloudData[2])}</ListGroup.Item>
+                <ListGroup.Item className="bg-transparent border-0 text-white">Maximum: {loading ? <PlaceHolder size = {6}/> : cloudCoverage(cloudData[0])}</ListGroup.Item>
+                <ListGroup.Item className="bg-transparent border-0 text-white">Average: {loading ? <PlaceHolder size = {6}/> : cloudCoverage(cloudData[1])}</ListGroup.Item>
+                <ListGroup.Item className="bg-transparent border-0 text-white">Minimum: {loading ? <PlaceHolder size = {6}/> : cloudCoverage(cloudData[2])}</ListGroup.Item>
               </ListGroup>
             </Carousel.Item>
             <Carousel.Item>
@@ -94,9 +95,9 @@ function FutureForcast() {
                 <h4 className="text-center">Lifted Index</h4>
               </Row>
               <ListGroup variant="flush" className="text-center">
-                <ListGroup.Item className="bg-transparent border-0 text-white">Maximum: {liftedIndexData[0]} </ListGroup.Item>
-                <ListGroup.Item className="bg-transparent border-0 text-white">Average:  {liftedIndexData[1]}</ListGroup.Item>
-                <ListGroup.Item className="bg-transparent border-0 text-white">Minimum:  {liftedIndexData[2]}</ListGroup.Item>
+                <ListGroup.Item className="bg-transparent border-0 text-white">Maximum: {loading ? <PlaceHolder size = {6}/> : liftedIndexData[0]} </ListGroup.Item>
+                <ListGroup.Item className="bg-transparent border-0 text-white">Average:  {loading ? <PlaceHolder size = {6}/> : liftedIndexData[1]}</ListGroup.Item>
+                <ListGroup.Item className="bg-transparent border-0 text-white">Minimum:  {loading ? <PlaceHolder size = {6}/> : liftedIndexData[2]}</ListGroup.Item>
               </ListGroup>
 
 
@@ -107,9 +108,9 @@ function FutureForcast() {
                 <h4 className="text-center">Temperature</h4>
               </Row>
               <ListGroup variant="flush" className="text-center">
-                <ListGroup.Item className="bg-transparent border-0 text-white">Maximum: {tempData[0]}&#8451; | {(parseFloat(tempData[0]) * 9 / 5 + 32).toFixed(1)} &#8457;</ListGroup.Item>
-                <ListGroup.Item className="bg-transparent border-0 text-white">Average: {tempData[1]}&#8451; | {(parseFloat(tempData[1]) * 9 / 5 + 32).toFixed(1)} &#8457;</ListGroup.Item>
-                <ListGroup.Item className="bg-transparent border-0 text-white">Minimum: {tempData[2]}&#8451;  | {(parseFloat(tempData[2]) * 9 / 5 + 32).toFixed(1)} &#8457;</ListGroup.Item>
+                <ListGroup.Item className="bg-transparent border-0 text-white">Maximum: {loading ? <PlaceHolder size = {6}/> : tempData[0]}&#8451; | {loading ? <PlaceHolder size = {6}/> : (parseFloat(tempData[0]) * 9 / 5 + 32).toFixed(1)} &#8457;</ListGroup.Item>
+                <ListGroup.Item className="bg-transparent border-0 text-white">Average: {loading ? <PlaceHolder size = {6}/> : tempData[1]}&#8451; | {loading ? <PlaceHolder size = {6}/> : (parseFloat(tempData[1]) * 9 / 5 + 32).toFixed(1)} &#8457;</ListGroup.Item>
+                <ListGroup.Item className="bg-transparent border-0 text-white">Minimum: {loading ? <PlaceHolder size = {6}/> : tempData[2]}&#8451;  | {loading ? <PlaceHolder size = {6}/> : (parseFloat(tempData[2]) * 9 / 5 + 32).toFixed(1)} &#8457;</ListGroup.Item>
               </ListGroup>
 
             </Carousel.Item>
@@ -118,9 +119,9 @@ function FutureForcast() {
                 <h4 className="text-center">Percipitation Amount</h4>
               </Row>
               <ListGroup variant="flush" className="text-center">
-                <ListGroup.Item className="bg-transparent border-0 text-white">Maximum: {percipitationAmount(precData[0])}</ListGroup.Item>
-                <ListGroup.Item className="bg-transparent border-0 text-white">Average: {percipitationAmount(precData[1])}</ListGroup.Item>
-                <ListGroup.Item className="bg-transparent border-0 text-white">Minimum: {percipitationAmount(precData[2])}</ListGroup.Item>
+                <ListGroup.Item className="bg-transparent border-0 text-white">Maximum: {loading ? <PlaceHolder size = {6}/> : percipitationAmount(precData[0])}</ListGroup.Item>
+                <ListGroup.Item className="bg-transparent border-0 text-white">Average: {loading ? <PlaceHolder size = {6}/> : percipitationAmount(precData[1])}</ListGroup.Item>
+                <ListGroup.Item className="bg-transparent border-0 text-white">Minimum: {loading ? <PlaceHolder size = {6}/> : percipitationAmount(precData[2])}</ListGroup.Item>
               </ListGroup>
 
             </Carousel.Item>
@@ -130,9 +131,9 @@ function FutureForcast() {
                 <h4 className="text-center">Humidty</h4>
               </Row>
               <ListGroup variant="flush" className="text-center">
-                <ListGroup.Item className="bg-transparent border-0 text-white">Maximum: {humidityData[0]}%</ListGroup.Item>
-                <ListGroup.Item className="bg-transparent border-0 text-white">Average: {humidityData[1]}%</ListGroup.Item>
-                <ListGroup.Item className="bg-transparent border-0 text-white">Minimum: {humidityData[2]}%</ListGroup.Item>
+                <ListGroup.Item className="bg-transparent border-0 text-white">Maximum: {loading ? <PlaceHolder size = {6}/> : humidityData[0]}%</ListGroup.Item>
+                <ListGroup.Item className="bg-transparent border-0 text-white">Average: {loading ? <PlaceHolder size = {6}/> : humidityData[1]}%</ListGroup.Item>
+                <ListGroup.Item className="bg-transparent border-0 text-white">Minimum: {loading ? <PlaceHolder size = {6}/> : humidityData[2]}%</ListGroup.Item>
               </ListGroup>
 
             </Carousel.Item>
@@ -145,9 +146,9 @@ function FutureForcast() {
                 <h4 className="text-center">Cloud Coverage</h4>
               </Row>
               <ListGroup variant="flush" className="text-center">
-                <ListGroup.Item className="bg-transparent border-white text-white">Maximum: {cloudCoverage(cloudData[0])}</ListGroup.Item>
-                <ListGroup.Item className="bg-transparent border-white text-white">Average: {cloudCoverage(cloudData[1])}</ListGroup.Item>
-                <ListGroup.Item className="bg-transparent border-white text-white">Minimum: {cloudCoverage(cloudData[2])}</ListGroup.Item>
+                <ListGroup.Item className="bg-transparent border-white text-white">Maximum: {loading ? <PlaceHolder size = {6}/> : cloudCoverage(cloudData[0])}</ListGroup.Item>
+                <ListGroup.Item className="bg-transparent border-white text-white">Average: {loading ? <PlaceHolder size = {6}/> : cloudCoverage(cloudData[1])}</ListGroup.Item>
+                <ListGroup.Item className="bg-transparent border-white text-white">Minimum: {loading ? <PlaceHolder size = {6}/> : cloudCoverage(cloudData[2])}</ListGroup.Item>
               </ListGroup>
             </Col>
 
@@ -156,9 +157,9 @@ function FutureForcast() {
                 <h4 className="text-center">Lifted Index</h4>
               </Row>
               <ListGroup variant="flush" className="text-center">
-                <ListGroup.Item className="bg-transparent border-white text-white">Maximum: {liftedIndexData[0]} </ListGroup.Item>
-                <ListGroup.Item className="bg-transparent border-white text-white">Average:  {liftedIndexData[1]}</ListGroup.Item>
-                <ListGroup.Item className="bg-transparent border-white text-white">Minimum:  {liftedIndexData[2]}</ListGroup.Item>
+                <ListGroup.Item className="bg-transparent border-white text-white">Maximum: {loading ? <PlaceHolder size = {6}/> : liftedIndexData[0]} </ListGroup.Item>
+                <ListGroup.Item className="bg-transparent border-white text-white">Average:  {loading ? <PlaceHolder size = {6}/> : liftedIndexData[1]}</ListGroup.Item>
+                <ListGroup.Item className="bg-transparent border-white text-white">Minimum:  {loading ? <PlaceHolder size = {6}/> : liftedIndexData[2]}</ListGroup.Item>
               </ListGroup>
             </Col>
 
@@ -167,9 +168,9 @@ function FutureForcast() {
                 <h4 className="text-center">Temperature</h4>
               </Row>
               <ListGroup variant="flush" className="text-center">
-                <ListGroup.Item className="bg-transparent border-white text-white">Maximum: {tempData[0]}&#8451; | {(parseFloat(tempData[0]) * 9 / 5 + 32).toFixed(1)} &#8457;</ListGroup.Item>
-                <ListGroup.Item className="bg-transparent border-white text-white">Average: {tempData[1]}&#8451; | {(parseFloat(tempData[1]) * 9 / 5 + 32).toFixed(1)} &#8457;</ListGroup.Item>
-                <ListGroup.Item className="bg-transparent border-white text-white">Minimum: {tempData[2]}&#8451;  | {(parseFloat(tempData[2]) * 9 / 5 + 32).toFixed(1)} &#8457;</ListGroup.Item>
+                <ListGroup.Item className="bg-transparent border-white text-white">Maximum: {loading ? <PlaceHolder size = {6}/> : tempData[0]}&#8451; | {loading ? <PlaceHolder size = {6}/> :(parseFloat(tempData[0]) * 9 / 5 + 32).toFixed(1)} &#8457;</ListGroup.Item>
+                <ListGroup.Item className="bg-transparent border-white text-white">Average: {loading ? <PlaceHolder size = {6}/> : tempData[1]}&#8451; | {loading ? <PlaceHolder size = {6}/> :(parseFloat(tempData[1]) * 9 / 5 + 32).toFixed(1)} &#8457;</ListGroup.Item>
+                <ListGroup.Item className="bg-transparent border-white text-white">Minimum: {loading ? <PlaceHolder size = {6}/> : tempData[2]}&#8451;  | {loading ? <PlaceHolder size = {6}/> :(parseFloat(tempData[2]) * 9 / 5 + 32).toFixed(1)} &#8457;</ListGroup.Item>
               </ListGroup>
             </Col>
 
@@ -178,9 +179,9 @@ function FutureForcast() {
                 <h4 className="text-center">Percipitation Amount</h4>
               </Row>
               <ListGroup variant="flush" className="text-center">
-                <ListGroup.Item className="bg-transparent border-white text-white">Maximum: {percipitationAmount(precData[0])}</ListGroup.Item>
-                <ListGroup.Item className="bg-transparent border-white text-white">Average: {percipitationAmount(precData[1])}</ListGroup.Item>
-                <ListGroup.Item className="bg-transparent border-white text-white">Minimum: {percipitationAmount(precData[2])}</ListGroup.Item>
+                <ListGroup.Item className="bg-transparent border-white text-white">Maximum: {loading ? <PlaceHolder size = {6}/> : percipitationAmount(precData[0])}</ListGroup.Item>
+                <ListGroup.Item className="bg-transparent border-white text-white">Average: {loading ? <PlaceHolder size = {6}/> : percipitationAmount(precData[1])}</ListGroup.Item>
+                <ListGroup.Item className="bg-transparent border-white text-white">Minimum: {loading ? <PlaceHolder size = {6}/> : percipitationAmount(precData[2])}</ListGroup.Item>
               </ListGroup>
             </Col>
 
@@ -189,9 +190,9 @@ function FutureForcast() {
                 <h4 className="text-center">Humidty</h4>
               </Row>
               <ListGroup variant="flush" className="text-center">
-                <ListGroup.Item className="bg-transparent border-white text-white">Maximum: {humidityData[0]}%</ListGroup.Item>
-                <ListGroup.Item className="bg-transparent border-white text-white">Average: {humidityData[1]}%</ListGroup.Item>
-                <ListGroup.Item className="bg-transparent border-white text-white">Minimum: {humidityData[2]}%</ListGroup.Item>
+                <ListGroup.Item className="bg-transparent border-white text-white">Maximum: {loading ? <PlaceHolder size = {6}/> : humidityData[0]}%</ListGroup.Item>
+                <ListGroup.Item className="bg-transparent border-white text-white">Average: {loading ? <PlaceHolder size = {6}/> : humidityData[1]}%</ListGroup.Item>
+                <ListGroup.Item className="bg-transparent border-white text-white">Minimum: {loading ? <PlaceHolder size = {6}/> : humidityData[2]}%</ListGroup.Item>
               </ListGroup>
             </Col>
 

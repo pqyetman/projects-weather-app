@@ -2,7 +2,8 @@ import Carousel from 'react-bootstrap/Carousel';
 import FFCard from './FFCard';
 import Row from 'react-bootstrap/Row';
 import { useState, useEffect, useContext } from 'react';
-import LocContext from './store/loc-context'
+import LocContext from './store/loc-context';
+
 
 function FFCarousel({ loading }) {
 
@@ -36,18 +37,18 @@ function FFCarousel({ loading }) {
             <Carousel indicators={false} slide className="py-4 my-2 d-none d-md-block ">
                 <Carousel.Item >
                     <Row className="  justify-content-evenly mb-5">
-                        <FFCard dailyForcast={dayTwo} />
-                        <FFCard dailyForcast={dayThree} />
-                        <FFCard dailyForcast={dayFour} />
+                        <FFCard dailyForcast={dayTwo} loading={loading}/>
+                        <FFCard dailyForcast={dayThree} loading={loading} />
+                        <FFCard dailyForcast={dayFour} loading={loading} />
                     </Row>
                 </Carousel.Item>
 
 
                 <Carousel.Item>
                     <Row className=" justify-content-evenly mb-5">
-                        <FFCard dailyForcast={dayFive} />
-                        <FFCard dailyForcast={daySix} />
-                        <FFCard dailyForcast={daySeven} />
+                        <FFCard dailyForcast={dayFive} loading={loading} />
+                        <FFCard dailyForcast={daySix} loading={loading} />
+                        <FFCard dailyForcast={daySeven} loading={loading} />
                     </Row>
                 </Carousel.Item>              
             </Carousel >
@@ -55,36 +56,36 @@ function FFCarousel({ loading }) {
             <Carousel indicators={false} slide className="py-4 my-2 d-block d-md-none ">
                 <Carousel.Item >
                     <Row className=" justify-content-center mb-5">
-                        <FFCard dailyForcast={dayTwo} />                       
+                        <FFCard dailyForcast={dayTwo} loading={loading}/>                       
                     </Row>
                 </Carousel.Item>
                 <Carousel.Item >
                     <Row className=" justify-content-center mb-5">
-                    <FFCard dailyForcast={dayThree} />                     
+                    <FFCard dailyForcast={dayThree} loading={loading}/>                     
                     </Row>
                 </Carousel.Item>
                 <Carousel.Item >
                     <Row className=" justify-content-center mb-5">
-                    <FFCard dailyForcast={dayFour} />                      
+                    <FFCard dailyForcast={dayFour} loading={loading}/>                      
                     </Row>
                 </Carousel.Item>
               
                 <Carousel.Item >
                     <Row className=" justify-content-center mb-5">
-                    <FFCard dailyForcast={dayFive} />                    
+                    <FFCard dailyForcast={dayFive} loading={loading}/>                    
                     </Row>
                 </Carousel.Item>
 
                 <Carousel.Item >
                     <Row className=" justify-content-center mb-5">
-                    <FFCard dailyForcast={daySix} />                    
+                    <FFCard dailyForcast={daySix} loading={loading}/>                    
                     </Row>
                 </Carousel.Item>
 
                 <Carousel.Item >
                     <Row className=" justify-content-center mb-5">
                                      
-                    <FFCard dailyForcast={daySeven} />                   
+                    <FFCard dailyForcast={daySeven} loading={loading}/>                   
                     </Row>
                 </Carousel.Item>                     
             
