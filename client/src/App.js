@@ -43,7 +43,7 @@ function App() {
       setCoords( { lat:  parseFloat(latitude).toFixed(2),
                   lng:  parseFloat(longitude).toFixed(2)})
 
-        console.log("Fired")
+
 
       }, () => { 
         
@@ -70,7 +70,7 @@ function App() {
 
   useEffect(() => {
 
-    isThereAnyState.current = false 
+    todaysWeather === [] || futureWeather === [] ? isThereAnyState.current = false :   isThereAnyState.current = true;
         
 
     fetchWeather({ url1: `https://www.7timer.info/bin/api.pl?lon=${coords.lng}&lat=${coords.lat}&product=civillight&output=json`,
@@ -81,7 +81,7 @@ function App() {
 
     getAddress( coords.lat, coords.lng,  setLocation )
   
-  isThereAnyState.current = true;
+
     
   },[coords, fetchWeather]); 
 
