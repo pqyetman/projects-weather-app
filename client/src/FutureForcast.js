@@ -1,4 +1,3 @@
-import { useEffect, useState, useContext } from 'react';
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row';
 import Carousel from 'react-bootstrap/Carousel';
@@ -7,56 +6,16 @@ import SearchCityBar from './SearchCityBar';
 import FFCarousel from './FFCarousel';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { statCloudCover, statHumidity, statPrec, statLiftedIndex, statTemp, percipitationAmount, cloudCoverage } from './WeatherDataFunctions'
-import LocContext from './store/loc-context'
-import useHttp from './hooks/use-http';
 import PlaceHolder from './PlaceHolder';
 
 
-function FutureForcast() {
+function FutureForcast({futureWeather, todaysWeather, loading=true, location, setCoords}) {
 
-  const { loading, error, sendRequest: fetchWeather } = useHttp();
-
-  const ctx = useContext(LocContext)
-
-  const [cloudData, setCloudData] = useState([])
-  const [humidityData, setHumidityData] = useState([])
-  const [precData, setPrecData] = useState([])
-  const [liftedIndexData, setLiftedIndexData] = useState([])
-  const [tempData, setTempData] = useState([])
-
-
-  useEffect(() => {
-
-
-    if (typeof ctx.lng === "string" & typeof ctx.lat === "string") {  
-
-      
-      fetchWeather({ url: `https://www.7timer.info/bin/api.pl?lon=${ctx.lng}&lat=${ctx.lat}&product=civillight&output=json` },
-        ctx.setWeeklyForcast
-      )     
-
-      fetchWeather({ url: `https://www.7timer.info/bin/api.pl?lon=${ctx.lng}&lat=${ctx.lat}&product=civil&output=json` },
-      ctx.setForecast) 
-
-    }    
-
-
-  }, [ctx.lng, ctx.lat]);
-
-  useEffect(() => {
-
-
-    if(!loading){
-      setCloudData(statCloudCover(ctx.forecast))
-      setHumidityData(statHumidity(ctx.forecast))
-      setPrecData(statPrec(ctx.forecast))
-      setLiftedIndexData(statLiftedIndex(ctx.forecast))
-      setTempData(statTemp(ctx.forecast))
-
-    }
-
-  }, [ctx.forecast, loading])
-
+  const cloudData = statCloudCover(todaysWeather)
+  const humidityData = statHumidity(todaysWeather)
+  const precData = statPrec(todaysWeather)
+  const liftedIndexData = statLiftedIndex(todaysWeather)
+  const tempData = statTemp(todaysWeather)
 
 
   return (
@@ -65,10 +24,10 @@ function FutureForcast() {
         <Col md={12} className="text-center text-white ">
           <Row className="mt-2 justify-content-center justify-content-md-start">
             <Col md={4} xs={8} lg={3} className="d-block d-md-inline ms-2" >
-              <SearchCityBar />
+              <SearchCityBar setCoords={setCoords} />
             </Col>
             <Row className="pt-5 pt-md-2">
-              <h2>{loading || ctx.location === false ? <PlaceHolder/> :ctx.location}</h2>
+              <h2>{loading || location === false ? <PlaceHolder/> : location}</h2>
             </Row>
           </Row>
           <Row className="mt-4 py-4">
@@ -206,7 +165,7 @@ function FutureForcast() {
 
           <Row >
             <Col md={12}>
-              <FFCarousel loading={loading}/>
+              <FFCarousel futureWeather={futureWeather} loading={loading}/>
             </Col>
           </Row>
         </Col>

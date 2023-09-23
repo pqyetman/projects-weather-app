@@ -139,7 +139,7 @@ const windSpeedArray = [
 
 ]
 
-export function windSpeed(number) {
+export function calcWindSpeed(number) {
 
     return windSpeedArray[number - 1]
 
@@ -161,19 +161,16 @@ export function dateConversion(date) {
         return fixedDate
     }
 
-    else console.log("date invalid")
 }
 
 export function calcGMTShiftInit(lng, gmtInit) {
 
     let gmtCalc = Math.ceil(Math.abs((lng) / 15)) * Math.sign((lng) / 15)
 
-    let dateStr = gmtInit.toString()
-    const year = dateStr.slice(0, 4);
-    const month = dateStr.slice(4, 6);
-    const day = dateStr.slice(6, 8);
+    let dateStr = gmtInit.toString() 
+ 
     const hour = dateStr.slice(8, 10);
-    let fixedDate = `Date:  ${month}/${day}/${year}`
+   
 
     let gmtShiftInit = parseInt(hour) + parseInt(gmtCalc)
 

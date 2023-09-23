@@ -1,15 +1,7 @@
 import Geocode from "react-geocode";
 
-
- 
-
-
-
-
-
-
-
- 
+Geocode.setApiKey(`${process.env.REACT_APP_MAP_KEY}`)
+Geocode.setLanguage("en")
 
 export const getAddress = (lat, lng, setAddress) => {        
 
@@ -25,7 +17,7 @@ export const getAddress = (lat, lng, setAddress) => {
               
                 setAddress(editedAddress)
             },
-            (error) => alert(error))
+            (error) => console.log(error))
 
 
     };
@@ -35,14 +27,14 @@ export const getLngLat = (address, setLocation) => {
         Geocode.fromAddress(`${address}`).then(
 
             (response) => {
-                const { lat, lng } = response.results[0].geometry.location; 
+                
                       
                 setLocation(response.results)
                 
                 
             },
             (error) => {
-              alert(error)
+            //   alert(error)
             }
         );
 

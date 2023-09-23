@@ -1,36 +1,17 @@
 import Carousel from 'react-bootstrap/Carousel';
 import FFCard from './FFCard';
 import Row from 'react-bootstrap/Row';
-import { useState, useEffect, useContext } from 'react';
-import LocContext from './store/loc-context';
 
 
-function FFCarousel({ loading }) {
-
-    const ctx = useContext(LocContext)
-
-    const [dayTwo, setDayTwo] = useState("");
-    const [dayThree, setDayThree] = useState("");
-    const [dayFour, setDayFour] = useState("");
-    const [dayFive, setDayFive] = useState("");
-    const [daySix, setDaySix] = useState("");
-    const [daySeven, setDaySeven] = useState("");
-
-    useEffect(() => {
-
-        if(!loading){
-
-            setDayTwo(ctx.weeklyForcast[1])
-            setDayThree(ctx.weeklyForcast[2])
-            setDayFour(ctx.weeklyForcast[3])
-            setDayFive(ctx.weeklyForcast[4])
-            setDaySix(ctx.weeklyForcast[5])
-            setDaySeven(ctx.weeklyForcast[6])
-
-        }
+function FFCarousel({ loading, futureWeather }) {
 
 
-    }, [ctx.weeklyForcast, loading]);
+    const dayTwo = futureWeather[1] 
+    const dayThree = futureWeather[2] 
+    const dayFour = futureWeather[3] 
+    const dayFive = futureWeather[4] 
+    const daySix = futureWeather[5] 
+    const daySeven = futureWeather[6] 
 
     return (
         <>

@@ -1,4 +1,3 @@
-import { useEffect, useState, useContext } from 'react';
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -6,69 +5,22 @@ import { CloudDrizzleFill, ThermometerHalf, Wind } from 'react-bootstrap-icons'
 import EightHourCard from './EightHourCard';
 import SearchCityBar from './SearchCityBar';
 import Carousel from 'react-bootstrap/Carousel';
-import { windSpeed, cloudCoverage, percipitationAmount, filterWeatherString } from './WeatherDataFunctions'
-import LocContext from './store/loc-context'
-import useHttp from './hooks/use-http';
+import { calcWindSpeed, cloudCoverage, percipitationAmount, filterWeatherString } from './WeatherDataFunctions';
 import PlaceHolder from './PlaceHolder';
 
 
 
-function Home() {
+function Home({todaysWeather, loading , location, setLocation, setCoords}) {
 
-  const { loading, error, sendRequest: fetchWeather } = useHttp();
+ 
 
-  const ctx = useContext(LocContext)
-
-  const [currentForcast, setCurrentForcast] = useState([])
-  const [windDirection, setWindDirection] = useState("")
-  const [windspeed, setWindspeed,] = useState("")
-  const [threeHour, setThreeHour] = useState("")
-  const [sixHour, setSixHour] = useState("")
-  const [nineHour, setNineHour] = useState("")
-  const [twelveHour, setTwelveHour] = useState("")
-
-
-
-
-  let today = new Date()
-  let date = parseInt(today.getMonth() + 1) + '-' + today.getDate() + '-' + today.getFullYear()
-
-
-
-
-  useEffect(() => {
-
-
-    fetchWeather({ url: `https://www.7timer.info/bin/api.pl?lon=${ctx.lng}&lat=${ctx.lat}&product=civil&output=json` },
-      ctx.setForecast)
-
-  }, [ctx.lng, ctx.lat])
-
-  useEffect(() => {
-
-
-
-    if (!loading) {
-
-      setCurrentForcast(ctx.forecast[2])
-      setWindspeed(ctx.forecast[2].wind10m.speed)
-      setWindDirection(ctx.forecast[2].wind10m.direction)
-      setThreeHour(ctx.forecast[3])
-      setSixHour(ctx.forecast[4])
-      setNineHour(ctx.forecast[5])
-      setTwelveHour(ctx.forecast[6])
-    }
-
-  }, [ctx.forecast, loading])
-
-
-
-
-
-
-
-
-
+  const currentForcast = todaysWeather[2]
+  const windSpeed= todaysWeather[2].wind10m.speed || {}
+  const windDirection = todaysWeather[2].wind10m.direction || {}
+  const threeHour = todaysWeather[3]
+  const sixHour = todaysWeather[4]
+  const nineHour = todaysWeather[5]
+  const twelveHour = todaysWeather[6]
 
 
 
@@ -80,13 +32,13 @@ function Home() {
         <Row >
           <Col md={3} className="border-end border-white border-2 rounded-end pb-4" >
             <Row className="mb-3 mt-4 mx-3 pb-4" >
-              <SearchCityBar />
+              <SearchCityBar setCoords={setCoords} setLocation={setLocation} />
             </Row >
             <Row className=" mx-2 my-4 pt-4 border-bottom border-white">
-              <h2 className="text-center text-uppercase fw-bold font-monospace ">{loading || ctx.location === false ? <PlaceHolder/> :`${ctx.location}`}</h2>
+              <h2 className="text-center text-uppercase fw-bold font-monospace ">{loading || location === false ? <PlaceHolder/> : location}</h2>
             </Row>
             <Row className=" mx-2 mb-4 border-bottom border-white">
-              <h4 className="text-center text-uppercase fw-bold">Date: {date}</h4>
+              <h4 className="text-center text-uppercase fw-bold">Date: {new Date().toLocaleDateString()}</h4>
               <h5 className="text-center ">Current Forecast: {loading ? <PlaceHolder/> : filterWeatherString(currentForcast.weather)}</h5>
             </Row>
             <Row className=" mx-3 mb-3 text-end border-bottom border-white">
@@ -100,7 +52,7 @@ function Home() {
 
             <Row className="mx-3 mb-4 text-start border-bottom border-white">
               <h3> Wind <span><Wind /></span></h3>
-              <h3>Speed: {loading ? <PlaceHolder/> : windSpeed(windspeed)} </h3>
+              <h3>Speed: {loading ? <PlaceHolder/> : calcWindSpeed(windSpeed)} </h3>
               <Row className=" mt-1 ">
                 <h4>Direction: {loading ? <PlaceHolder/> : windDirection} </h4>
                 <h4>Lifted Index: {loading ? <PlaceHolder/> : currentForcast.lifted_index} </h4>

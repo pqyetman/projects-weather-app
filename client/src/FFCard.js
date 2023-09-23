@@ -1,29 +1,16 @@
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Stack from 'react-bootstrap/Stack';
-import { useState, useEffect } from 'react';
-import { windSpeed, filterWeather, filterWeatherString, dateConversion } from './WeatherDataFunctions';
+
+import { calcWindSpeed, filterWeather, filterWeatherString, dateConversion } from './WeatherDataFunctions';
 import PlaceHolder from './PlaceHolder';
 
-function FFCard({dailyForcast =[], loading}) {
-
-  const [tempMax, setTempMaxData] = useState("")
-  const [tempMin, setTempMinData] = useState("")
+function FFCard({loading, dailyForcast}) {
 
   const {temp2m, date, weather } = dailyForcast
 
-  useEffect(() => {
-
-    
-   
-      if (temp2m) {
-     setTempMaxData(temp2m.max)
-     setTempMinData(temp2m.min)  
-      }
-
-
-
-  }, [dailyForcast]);
+  const tempMaxData = temp2m.max
+  const tempMinData = temp2m.min 
 
 
     return (
@@ -38,9 +25,9 @@ function FFCard({dailyForcast =[], loading}) {
           </Stack>
         </Card.Body>
         <ListGroup className="list-group-flush">
-          <ListGroup.Item className="bg-transparent border-white text-white">Max Temp: {loading ? <PlaceHolder size = {6}/> :tempMax} &#8451; | {loading ? <PlaceHolder size = {6}/> :(parseFloat(tempMax) * 9 / 5 + 32).toFixed(1)} &#8457;  </ListGroup.Item>
-          <ListGroup.Item className="bg-transparent border-white text-white">Min Temp: {loading ? <PlaceHolder size = {6}/> :tempMin}&#8451; | {loading ? <PlaceHolder size = {6}/> :(parseFloat(tempMin) * 9 / 5 + 32).toFixed(1)} &#8457; </ListGroup.Item>  
-          <ListGroup.Item className="bg-transparent border-white text-white">Wind Speed: {loading ? <PlaceHolder size = {6}/> :windSpeed(dailyForcast.wind10m_max)}</ListGroup.Item>          
+          <ListGroup.Item className="bg-transparent border-white text-white">Max Temp: {loading ? <PlaceHolder size = {6}/> :10} &#8451; | {loading ? <PlaceHolder size = {6}/> :(parseFloat(tempMaxData) * 9 / 5 + 32).toFixed(1)} &#8457;  </ListGroup.Item>
+          <ListGroup.Item className="bg-transparent border-white text-white">Min Temp: {loading ? <PlaceHolder size = {6}/> :10}&#8451; | {loading ? <PlaceHolder size = {6}/> :(parseFloat(tempMinData) * 9 / 5 + 32).toFixed(1)} &#8457; </ListGroup.Item>  
+          <ListGroup.Item className="bg-transparent border-white text-white">Wind Speed: {loading ? <PlaceHolder size = {6}/> :calcWindSpeed(10)}</ListGroup.Item>          
         </ListGroup>     
       </Card>
     );

@@ -1,28 +1,23 @@
-import { useState, useContext } from "react";
+import { useState} from "react";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Popover from "react-bootstrap/Popover";
 import InputGroup from "react-bootstrap/InputGroup";
 import Form from "react-bootstrap/Form";
 import { Search } from "react-bootstrap-icons";
 import ListGroup from "react-bootstrap/ListGroup";
-import LocContext from "./store/loc-context.js";
-import { getLngLat, getAddress } from "./geocode/geocode.js";
+import { getLngLat } from "./geocode/geocode.js";
 
-function SearchCityBar() {
-
-
-  const ctx = useContext(LocContext);
+function SearchCityBar({setCoords}) {
 
   const [searchValue, setSearchValue] = useState("");
-  const [location, setLocation] = useState([]);
+  const [addresses, setAddresses] = useState([]);
 
   function setSearch(e) {
 
-    console.log(e);
 
-    getLngLat(e.target.value, setLocation);
+    getLngLat(e.target.value, setAddresses);
 
-    let mapLocations = location.map((result, index) => {
+    let mapLocations = addresses.map((result, index) => {
       return (
         <ListGroup.Item
           action
@@ -46,13 +41,13 @@ function SearchCityBar() {
     const longLat = e.target.id;
     const long = Number(longLat.split(" ")[1]).toFixed(2);
     const lat = Number(longLat.split(" ")[0]).toFixed(2);
-    ctx.setLng(long);
-    ctx.setLat(lat);
-    getAddress(ctx.lat, ctx.lng, ctx.setLocation);
+    setCoords( { lat:  parseFloat(lat).toFixed(2),
+      lng:  parseFloat(long).toFixed(2)})
+ 
   }
 
   function clearSearch() {
-    setLocation([]);
+    setAddresses([]);
     setSearchValue(<></>);
   }
 
