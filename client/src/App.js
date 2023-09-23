@@ -70,18 +70,18 @@ function App() {
 
   useEffect(() => {
 
-    futureWeather === [] || todaysWeather === [] ? isThereAnyState.current = false : isThereAnyState.current = true;
+    isThereAnyState.current = false 
         
 
-    fetchWeather({ url: `https://www.7timer.info/bin/api.pl?lon=${coords.lng}&lat=${coords.lat}&product=civillight&output=json` },
-     setFutureWeather
+    fetchWeather({ url1: `https://www.7timer.info/bin/api.pl?lon=${coords.lng}&lat=${coords.lat}&product=civillight&output=json`,
+    url2: `https://www.7timer.info/bin/api.pl?lon=${coords.lng}&lat=${coords.lat}&product=civil&output=json` },
+     setFutureWeather,
+     setTodaysWeather
     )     
-
-    fetchWeather({ url: `https://www.7timer.info/bin/api.pl?lon=${coords.lng}&lat=${coords.lat}&product=civil&output=json` },
-    setTodaysWeather) 
 
     getAddress( coords.lat, coords.lng,  setLocation )
   
+  isThereAnyState.current = true;
     
   },[coords, fetchWeather]); 
 

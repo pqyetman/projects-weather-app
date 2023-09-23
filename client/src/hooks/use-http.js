@@ -7,22 +7,27 @@ const useHttp = () => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null);
 
-  const sendRequest = useCallback(async (requestConfig, applyData) => {
-    
+  const sendRequest = useCallback(async (requestConfig, applyData1, applyData2) => {
+
+ 
     setLoading(true)
     setError(null);
-    try {
-      const response = await fetch(requestConfig.url);
 
-      if (!response.ok) {
-        throw new Error('Request failed!');
+      const twoFetchResults = await Promise.all([ 
+        
+        fetch(requestConfig.url1),
+        fetch(requestConfig.url2)
+      ]).then(results => Promise.all(results.map(r => r.json())) )
+      .then(results => {
+        
+        applyData1(results[0].dataseries)
+        applyData2(results[1].dataseries)
       }
+        ).catch( err => setError(err))      
 
-      const data = await response.json();
-      applyData(data.dataseries);
-    } catch (err) {
-      setError(err.message || 'Something went wrong!');
-    }
+
+   
+
     setLoading(false);
   }, []);
 
