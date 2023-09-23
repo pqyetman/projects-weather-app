@@ -21,7 +21,7 @@ function App() {
   const [futureWeather, setFutureWeather] = useState([])
   const [location, setLocation] = useState("New York City, NY")
 
-  const isThereAnyState = useRef(false)
+
  
 
 
@@ -70,7 +70,7 @@ function App() {
 
   useEffect(() => {
 
-    todaysWeather === [] || futureWeather === [] ? isThereAnyState.current = false :   isThereAnyState.current = true;
+   
         
 
     fetchWeather({ url1: `https://www.7timer.info/bin/api.pl?lon=${coords.lng}&lat=${coords.lat}&product=civillight&output=json`,
@@ -81,7 +81,7 @@ function App() {
 
     getAddress( coords.lat, coords.lng,  setLocation )
   
-
+   
     
   },[coords, fetchWeather]); 
 
@@ -94,11 +94,13 @@ function App() {
       <NavigationBar />
       <Switch>
         <Route exact path="/home"  
-        render={() => isThereAnyState.current ?<Home todaysWeather={todaysWeather} loading={loading} error={error} location={location} setLocation={setLocation} setCoords={setCoords}/>: <h1>Loading</h1>}/>
+        render={() =>  todaysWeather.length === 0 || futureWeather.length === 0  ? <h1>Loading</h1> :
+        <Home todaysWeather={todaysWeather} loading={loading} error={error} location={location} setLocation={setLocation} setCoords={setCoords}/> }/>
           
   
         <Route exact path="/futureforcast" 
-        render={() =>isThereAnyState.current ?<FutureForcast futureWeather={futureWeather} todaysWeather={todaysWeather} loading={loading} error={error} location={location} setCoords={setCoords}/>: <h1>Loading</h1>}/>
+        render={() => todaysWeather.length === 0 || futureWeather.length === 0  ? <h1>Loading</h1> :
+        <FutureForcast futureWeather={futureWeather} todaysWeather={todaysWeather} loading={loading} error={error} location={location} setCoords={setCoords}/> }/>
        
     
         <Route exact path="/historicaldata" render={() => <HistoricalForcast />}/>       

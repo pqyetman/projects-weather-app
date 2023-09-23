@@ -10,10 +10,10 @@ import PlaceHolder from './PlaceHolder';
 
 
 
-function Home({todaysWeather, loading , location, setLocation, setCoords}) {
+function Home({todaysWeather , loading , location, setLocation, setCoords}) {
 
  
-
+ 
   const currentForcast = todaysWeather[2]
   const windSpeed= todaysWeather[2].wind10m.speed || {}
   const windDirection = todaysWeather[2].wind10m.direction || {}
