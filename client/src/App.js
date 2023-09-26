@@ -1,7 +1,7 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Route, Switch } from "react-router-dom";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect} from "react";
 import Home from "./Home";
 import FutureForcast from "./FutureForcast";
 import HistoricalForcast from "./HistoricalForcast";

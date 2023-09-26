@@ -25,7 +25,7 @@ const useHttp = () => {
       }
         ).catch( err => setError(err))      
 
-      console.log("fetched")
+ 
    
 
     setLoading(false);
