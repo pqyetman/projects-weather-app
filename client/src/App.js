@@ -1,7 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Route, Switch } from "react-router-dom";
 import { useState, useEffect } from "react";
-import Home from "./Home";
+import TodaysForecast from "./TodaysForecast";
 import FutureForcast from "./FutureForcast";
 import HistoricalForcast from "./HistoricalForcast";
 import NavigationBar from "./NavigationBar";
@@ -63,7 +63,7 @@ function App() {
             todaysWeather.length === 0 || futureWeather.length === 0 ? (
               <LoadingScreen/>
             ) : (
-              <Home
+              <TodaysForecast
                 todaysWeather={todaysWeather}
                 loading={loading}
                 error={error}
