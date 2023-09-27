@@ -1,6 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Route, Switch } from "react-router-dom";
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import Home from "./Home";
 import FutureForcast from "./FutureForcast";
 import HistoricalForcast from "./HistoricalForcast";
@@ -8,6 +8,7 @@ import NavigationBar from "./NavigationBar";
 import About from "./About";
 import useHttp from "./hooks/use-http";
 import { getAddress } from "./geocode/geocode.js";
+import LoadingScreen from "./LoadingScreen.js"
 
 function App() {
   const { loading, error, sendRequest: fetchWeather } = useHttp();
@@ -29,9 +30,6 @@ function App() {
             lng: parseFloat(longitude).toFixed(2),
           });
         },
-        () => {
-          // setCoords({lat: 40.71 , lng: -73.9 })
-        }
       );
     }
   };
@@ -63,7 +61,7 @@ function App() {
           path="/home"
           render={() =>
             todaysWeather.length === 0 || futureWeather.length === 0 ? (
-              <h1>Loading</h1>
+              <LoadingScreen/>
             ) : (
               <Home
                 todaysWeather={todaysWeather}
@@ -82,7 +80,7 @@ function App() {
           path="/futureforcast"
           render={() =>
             todaysWeather.length === 0 || futureWeather.length === 0 ? (
-              <h1>Loading</h1>
+              <LoadingScreen/>
             ) : (
               <FutureForcast
                 futureWeather={futureWeather}

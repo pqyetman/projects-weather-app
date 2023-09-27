@@ -18,10 +18,10 @@ function NavigationBar() {
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="me-auto">
                 <LinkContainer to="/home">
-                    <Nav.Link >Today's Forcast</Nav.Link>
+                    <Nav.Link >Today's Forecast</Nav.Link>
                     </LinkContainer>
                     <LinkContainer to="/futureforcast">
-                    <Nav.Link >Future Forcast</Nav.Link>
+                    <Nav.Link >Future Forecast</Nav.Link>
                     </LinkContainer>
                     <LinkContainer to="/historicalforcast">
                     <Nav.Link eventKey="disabled" disabled >Historical Data</Nav.Link>  

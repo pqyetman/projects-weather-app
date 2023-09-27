@@ -1,7 +1,6 @@
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Stack from 'react-bootstrap/Stack';
-
 import { calcWindSpeed, filterWeather, filterWeatherString, dateConversion } from './WeatherDataFunctions';
 import PlaceHolder from './PlaceHolder';
 
