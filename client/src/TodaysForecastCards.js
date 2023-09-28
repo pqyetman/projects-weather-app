@@ -33,6 +33,8 @@ function TodaysForecastCards({ loading, todaysWeather }) {
                                     </Row>
                                 </Col>)
                         }
+
+                        else {return null}
                     })}
 
                 </Row>

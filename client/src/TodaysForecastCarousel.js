@@ -31,6 +31,7 @@ function TodaysForecastCarousel({ loading, todaysWeather }) {
                                     </Row>
                                 </Carousel.Item>)
                         }
+                        else {return null}
                     })}
                 </Carousel>
 
