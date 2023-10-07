@@ -22,7 +22,7 @@ function TodaysForecastCarousel({ loading, todaysWeather }) {
 
                             return (
 
-                                <Carousel.Item className="flex-column">
+                                <Carousel.Item key={index}className="flex-column">
                                     <Row className="text-center pb-3">
                                         <h5>{(index - 2) * 3} Hours From Now</h5>
                                     </Row>

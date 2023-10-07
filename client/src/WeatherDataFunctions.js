@@ -1,17 +1,16 @@
 import { CloudSnow, CloudMoon, CloudLightning, BrightnessHigh, MoonStars, Cloud, CloudHaze, CloudDrizzle, CloudLightningRain, Rainbow } from 'react-bootstrap-icons'
 
 
-//statisitcal functions
 
-export function statCloudCover(forcast) {
-
+export function calcMaxMin(forcast, objval) {
 
 
-    let maxData = Math.max(...forcast.map(fc => parseInt(fc.cloudcover)))
-    let avgValues = forcast.map(fc => parseInt(fc.cloudcover))
+
+    let maxData = Math.max(...forcast.map(fc => parseInt(fc[objval])))
+    let avgValues = forcast.map(fc => parseInt(fc[objval]))
     let sum = avgValues.reduce((partialSum, a) => partialSum + a, 0);
     let avgData = sum / forcast.length
-    let minData = Math.min(...forcast.map(fc => parseInt(fc.cloudcover)))
+    let minData = Math.min(...forcast.map(fc => parseInt(fc[objval])))
 
     let statData = [maxData, Math.floor(avgData), minData]
 
@@ -19,75 +18,13 @@ export function statCloudCover(forcast) {
 
 }
 
-export function statHumidity(forcast) {
 
-
-
-    let maxData = Math.max(...forcast.map(fc => parseInt(fc.rh2m)))
-    let avgValues = forcast.map(fc => parseInt(fc.rh2m))
-    let sum = avgValues.reduce((partialSum, a) => partialSum + a, 0);
-    let avgData = sum / forcast.length
-    let minData = Math.min(...forcast.map(fc => parseInt(fc.rh2m)))
-
-    let statData = [maxData, avgData.toFixed(2), minData]
-
-    return statData
-
-}
-
-export function statPrec(forcast) {
-
-
-
-    let maxData = Math.max(...forcast.map(fc => parseInt(fc.prec_amount)))
-    let avgValues = forcast.map(fc => parseInt(fc.prec_amount))
-    let sum = avgValues.reduce((partialSum, a) => partialSum + a, 0);
-    let avgData = sum / forcast.length
-    let minData = Math.min(...forcast.map(fc => parseInt(fc.prec_amount)))
-
-    let statData = [maxData, Math.floor(avgData), minData]
-
-    return statData
-
-}
-
-export function statLiftedIndex(forcast) {
-
-
-
-    let maxData = Math.max(...forcast.map(fc => parseInt(fc.lifted_index)))
-    let avgValues = forcast.map(fc => parseInt(fc.lifted_index))
-    let sum = avgValues.reduce((partialSum, a) => partialSum + a, 0);
-    let avgData = sum / forcast.length
-    let minData = Math.min(...forcast.map(fc => parseInt(fc.lifted_index)))
-
-    let statData = [maxData, Math.floor(avgData), minData]
-
-    return statData
-
-}
-
-export function statTemp(forcast) {
-
-
-
-    let maxData = Math.max(...forcast.map(fc => parseInt(fc.temp2m)))
-    let avgValues = forcast.map(fc => parseInt(fc.temp2m))
-    let sum = avgValues.reduce((partialSum, a) => partialSum + a, 0);
-    let avgData = sum / forcast.length
-    let minData = Math.min(...forcast.map(fc => parseInt(fc.temp2m)))
-
-    let statData = [maxData, avgData.toFixed(2), minData]
-
-    return statData
-
-}
 
 
 
 //data translation functions
 
-const cloudCoverArr = ["0%-6",
+const cloudCoverArr = ["0%-6%",
     "6%-19%",
     "19%-31%",
     "31%-44%",
@@ -162,40 +99,6 @@ export function dateConversion(date) {
     }
 
 }
-
-export function calcGMTShiftInit(lng, gmtInit) {
-
-    let gmtCalc = Math.ceil(Math.abs((lng) / 15)) * Math.sign((lng) / 15)
-
-    let dateStr = gmtInit.toString() 
- 
-    const hour = dateStr.slice(8, 10);
-   
-
-    let gmtShiftInit = parseInt(hour) + parseInt(gmtCalc)
-
-    return gmtShiftInit
-}
-
-export function calcLocationTime(lng) {
-
-    // add GMT to locally caclulated time to get time in GMT
-    let today = new Date()
-    const localTimetoGMT = parseInt(today.getHours()) + parseInt(today.getTimezoneOffset()) / 60 // + ':' + today.getMinutes()    
-
-
-    //use longitude to calculate time shift from GMT
-    let gmtCalc = Math.abs((lng) / 15) < 1 ? 0 : Math.ceil(Math.abs((lng) / 15)) * Math.sign((lng) / 15)
-
-
-    const locationTime = parseInt(localTimetoGMT) + parseInt(gmtCalc) > 24 ? parseInt(localTimetoGMT) + parseInt(gmtCalc) - 24 + ':' + today.getMinutes() : parseInt(localTimetoGMT) + parseInt(gmtCalc) + ':' + today.getMinutes()
-
-    return locationTime
-
-}
-
-
-
 
 
 

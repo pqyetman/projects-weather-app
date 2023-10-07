@@ -3,7 +3,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import SearchCityBar from './SearchCityBar';
 import FutureForecastCarousel from './FutureForecastCarousel';
-import { statCloudCover, statHumidity, statPrec, statLiftedIndex, statTemp } from './WeatherDataFunctions'
+import { calcMaxMin} from './WeatherDataFunctions'
 import PlaceHolder from './PlaceHolder';
 import FutureForcastCarouselStat from './FutureForecastCarouselStat';
 import FutureForecastStat from './FutureForecastStat';
@@ -11,11 +11,12 @@ import FutureForecastStat from './FutureForecastStat';
 
 function FutureForcast({ futureWeather, todaysWeather, loading, location, setCoords }) {
 
-  const cloudData = statCloudCover(todaysWeather)
-  const humidityData = statHumidity(todaysWeather)
-  const precData = statPrec(todaysWeather)
-  const liftedIndexData = statLiftedIndex(todaysWeather)
-  const tempData = statTemp(todaysWeather)
+  const cloudData = calcMaxMin(todaysWeather, "cloudcover")
+  const humidityData = calcMaxMin(todaysWeather, "rh2m" )
+  const precData = calcMaxMin(todaysWeather, "prec_amount" )
+  const liftedIndexData = calcMaxMin(todaysWeather, "lifted_index")
+  const tempData = calcMaxMin(todaysWeather, "temp2m")
+
 
 
   return (
