@@ -1,4 +1,4 @@
-import { useState} from "react";
+import { useState } from "react";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Popover from "react-bootstrap/Popover";
 import InputGroup from "react-bootstrap/InputGroup";
@@ -7,48 +7,26 @@ import { Search } from "react-bootstrap-icons";
 import ListGroup from "react-bootstrap/ListGroup";
 import { getLngLat } from "./geocode/geocode.js";
 
-function SearchCityBar({setCoords}) {
-
-  const [searchValue, setSearchValue] = useState("");
+function SearchCityBar({ setCoords }) {
   const [addresses, setAddresses] = useState([]);
 
   function setSearch(e) {
-
-
     getLngLat(e.target.value, setAddresses);
-
-    let mapLocations = addresses.map((result, index) => {
-      return (
-        <ListGroup.Item
-          action
-          id={
-            `${result.geometry.location.lat}` +
-            " " +
-            `${result.geometry.location.lng}`
-          }
-          onClick={setLongLat}
-          key={index.toString()}
-        >
-          {result.formatted_address}
-        </ListGroup.Item>
-      );
-    });
-
-    setSearchValue(mapLocations);
   }
 
   function setLongLat(e) {
     const longLat = e.target.id;
     const long = Number(longLat.split(" ")[1]).toFixed(2);
     const lat = Number(longLat.split(" ")[0]).toFixed(2);
-    setCoords( { lat:  parseFloat(lat).toFixed(2),
-      lng:  parseFloat(long).toFixed(2)})
- 
+    setCoords({
+      lat: parseFloat(lat).toFixed(2),
+      lng: parseFloat(long).toFixed(2),
+    });
   }
 
   function clearSearch() {
     setAddresses([]);
-    setSearchValue(<></>);
+  
   }
 
   return (
@@ -60,7 +38,24 @@ function SearchCityBar({setCoords}) {
         overlay={
           <Popover id={`popover-positioned-bottom`}>
             <Popover.Body>
-              <ListGroup variant="flush">{searchValue}</ListGroup>
+              <ListGroup variant="flush">
+                {addresses.map((result, index) => {
+                  return (
+                    <ListGroup.Item
+                      action
+                      id={
+                        `${result.geometry.location.lat}` +
+                        " " +
+                        `${result.geometry.location.lng}`
+                      }
+                      onClick={setLongLat}
+                      key={index.toString()}
+                    >
+                      {result.formatted_address}
+                    </ListGroup.Item>
+                  );
+                })}
+              </ListGroup>
             </Popover.Body>
           </Popover>
         }

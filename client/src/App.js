@@ -8,7 +8,7 @@ import NavigationBar from "./NavigationBar";
 import About from "./About";
 import useHttp from "./hooks/use-http";
 import { getAddress } from "./geocode/geocode.js";
-import LoadingScreen from "./LoadingScreen.js"
+import LoadingScreen from "./LoadingScreen.js";
 
 function App() {
   const { loading, error, sendRequest: fetchWeather } = useHttp();
@@ -21,16 +21,14 @@ function App() {
     if (!navigator.geolocation) {
       alert("Your Browser Does Not Support Geolocation");
     } else {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
+      navigator.geolocation.getCurrentPosition((position) => {
+        const { latitude, longitude } = position.coords;
 
-          setCoords({
-            lat: parseFloat(latitude).toFixed(2),
-            lng: parseFloat(longitude).toFixed(2),
-          });
-        },
-      );
+        setCoords({
+          lat: parseFloat(latitude).toFixed(2),
+          lng: parseFloat(longitude).toFixed(2),
+        });
+      });
     }
   };
 
@@ -58,10 +56,10 @@ function App() {
       <Switch>
         <Route
           exact
-          path="/home"
+          path="/todaysforecast"
           render={() =>
             todaysWeather.length === 0 || futureWeather.length === 0 ? (
-              <LoadingScreen/>
+              <LoadingScreen />
             ) : (
               <TodaysForecast
                 todaysWeather={todaysWeather}
@@ -77,10 +75,10 @@ function App() {
 
         <Route
           exact
-          path="/futureforcast"
+          path="/futureforecast"
           render={() =>
             todaysWeather.length === 0 || futureWeather.length === 0 ? (
-              <LoadingScreen/>
+              <LoadingScreen />
             ) : (
               <FutureForcast
                 futureWeather={futureWeather}
