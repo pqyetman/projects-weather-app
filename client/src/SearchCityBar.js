@@ -10,10 +10,6 @@ import { getLngLat } from "./geocode/geocode.js";
 function SearchCityBar({ setCoords }) {
   const [addresses, setAddresses] = useState([]);
 
-  function setSearch(e) {
-    getLngLat(e.target.value, setAddresses);
-  }
-
   function setLongLat(e) {
     const longLat = e.target.id;
     const long = Number(longLat.split(" ")[1]).toFixed(2);
@@ -24,10 +20,7 @@ function SearchCityBar({ setCoords }) {
     });
   }
 
-  function clearSearch() {
-    setAddresses([]);
-  
-  }
+
 
   return (
     <>
@@ -68,8 +61,8 @@ function SearchCityBar({ setCoords }) {
             aria-describedby="basic-addon1"
             list="datalistOptions"
             id="exampleDataList"
-            onChange={setSearch}
-            onClick={clearSearch}
+            onChange={(e)=> getLngLat(e.target.value, setAddresses)}
+            onClick={()=> setAddresses([])}
           />
 
           <InputGroup.Text
